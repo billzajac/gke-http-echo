@@ -27,12 +27,12 @@ Build the server in a Docker image, then tag it and push it to Docker Hub
 
 * Build the Docker image and tag it
 ```
-docker build -t http-echo:1.0.0 .
+sudo docker build -t http-echo:1.0.0 .
 ```
 
 * Test docker
 ```
-docker run --publish 6060:8080 --name test --rm http-echo:1.0.0 
+sudo docker run --publish 6060:8080 --name test --rm http-echo:1.0.0 
 curl localhost:6060
 ```
 
