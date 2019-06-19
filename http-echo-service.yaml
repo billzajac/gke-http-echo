@@ -1,0 +1,15 @@
+# https://kubernetes.io/docs/user-guide/services/operations/#sample-files
+kind: Service
+apiVersion: v1
+metadata:
+  name: http-echo
+spec:
+  selector:
+    app: http-echo
+  ports:
+    - protocol: TCP
+      # port is the service port to expose on the cluster IP
+      port: 8222
+      # targetPort is the port to target on the pods that are part of this service
+      targetPort: 8080
+  type: LoadBalancer

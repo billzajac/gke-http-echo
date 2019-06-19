@@ -1,0 +1,4 @@
+kubectl delete services http-echo
+kubectl delete deployments http-echo
+docker rmi foo/http-echo:1.0.0
+docker rmi http-echo:1.0.0

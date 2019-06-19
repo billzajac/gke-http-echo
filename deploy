@@ -1,0 +1,10 @@
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo
+docker build -t http-echo:1.0.0 .
+docker tag http-echo:1.0.0 foo/http-echo:1.0.0
+docker push foo/http-echo:1.0.0
+kubectl create -f http-echo-deployment.yaml
+kubectl create -f http-echo-service.yaml
+
+echo
+echo "Run:"
+echo "  kubectl get services http-echo"
