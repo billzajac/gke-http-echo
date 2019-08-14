@@ -45,7 +45,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	// Write out the response
 	//	w.Write(requestDump)
-	fmt.Fprintf(w, "%s\nCounter: %s\n", dump, strconv.Itoa(counter))
+	fmt.Fprintf(w, "%s\nCounter: %s\n", requestDump, strconv.Itoa(counter))
 }
 
 func incrementCounter(w http.ResponseWriter, r *http.Request) {
