@@ -6,7 +6,12 @@ import (
 	"net"
 	"net/http"
 	"net/http/httputil"
+	"strconv"
+	"sync"
 )
+
+var counter int
+var mutex = &sync.Mutex{}
 
 func health_handler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
@@ -39,7 +44,15 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	check(err, "reading request")
 
 	// Write out the response
-	w.Write(requestDump)
+	//	w.Write(requestDump)
+	fmt.Fprintf(w, "%s\nCounter: %s\n", dump, strconv.Itoa(counter))
+}
+
+func incrementCounter(w http.ResponseWriter, r *http.Request) {
+	mutex.Lock()
+	counter++
+	fmt.Fprintf(w, strconv.Itoa(counter))
+	mutex.Unlock()
 }
 
 func check(err error, note string) {
@@ -51,6 +64,7 @@ func check(err error, note string) {
 
 func main() {
 	http.HandleFunc("/", handler)
+	http.HandleFunc("/increment", incrementCounter)
 	http.HandleFunc("/health", health_handler)
 	http.ListenAndServe("0.0.0.0:8080", nil)
 }
